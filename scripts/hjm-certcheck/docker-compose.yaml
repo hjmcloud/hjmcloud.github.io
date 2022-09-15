@@ -1,0 +1,10 @@
+version: '3'
+services:
+  hjm-certcheck:
+    image: hjmcloud/hjm-certcheck:latest
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config.yaml:/app/config.yaml
+

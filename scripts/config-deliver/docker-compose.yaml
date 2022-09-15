@@ -1,0 +1,12 @@
+version: '3'
+services:
+  config-deliver:
+    image: hjmcloud/config-deliver:latest
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config.yaml:/app/config.yaml
+      - ./data:/app/data    # 映射一个data目录,用来存储或链接要提供分发的文件
+    ports:
+      - 20000:8000    # 宿主机端口:容器内端口  容器内端口依据config.yaml配置而定

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Treafik Systemd Service 安装脚本 | HJMCLOUD</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    
+    <meta name="description" content="HJMCLOUD is a cloud platform">
+    
+    <link rel="preload" href="/assets/css/0.styles.8f93fd0e.css" as="style"><link rel="preload" href="/assets/js/app.41f7334c.js" as="script"><link rel="preload" href="/assets/js/2.66dbf3eb.js" as="script"><link rel="preload" href="/assets/js/23.f7f9bda1.js" as="script"><link rel="prefetch" href="/assets/js/10.a531dd49.js"><link rel="prefetch" href="/assets/js/11.6a6eff07.js"><link rel="prefetch" href="/assets/js/12.27cd6c0c.js"><link rel="prefetch" href="/assets/js/13.3a63803d.js"><link rel="prefetch" href="/assets/js/14.6f3c062e.js"><link rel="prefetch" href="/assets/js/15.2f6fc427.js"><link rel="prefetch" href="/assets/js/16.f46b2618.js"><link rel="prefetch" href="/assets/js/17.ddbe54a1.js"><link rel="prefetch" href="/assets/js/18.ab7c7d6c.js"><link rel="prefetch" href="/assets/js/19.af0ae7f6.js"><link rel="prefetch" href="/assets/js/20.479e43aa.js"><link rel="prefetch" href="/assets/js/21.ecbcdd53.js"><link rel="prefetch" href="/assets/js/22.e2a85dff.js"><link rel="prefetch" href="/assets/js/3.59d93665.js"><link rel="prefetch" href="/assets/js/4.09cb46a0.js"><link rel="prefetch" href="/assets/js/5.8865fc04.js"><link rel="prefetch" href="/assets/js/6.461cca72.js"><link rel="prefetch" href="/assets/js/7.377dc914.js"><link rel="prefetch" href="/assets/js/8.29c0277a.js"><link rel="prefetch" href="/assets/js/9.63a49999.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8f93fd0e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">HJMCLOUD</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="组件集合" class="dropdown-title"><span class="title">组件集合</span> <span class="arrow down"></span></button> <button type="button" aria-label="组件集合" class="mobile-dropdown-title"><span class="title">组件集合</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/config-deliver/" class="nav-link">
+  配置分发服务端
+</a></li><li class="dropdown-item"><!----> <a href="/config-deliver-client/" class="nav-link">
+  配置分发客户端
+</a></li><li class="dropdown-item"><!----> <a href="/hjm-certcheck/" class="nav-link">
+  证书检测
+</a></li></ul></div></div><div class="nav-item"><a href="/script-lib/" class="nav-link router-link-active">
+  脚本库
+</a></div><div class="nav-item"><a href="https://github.com/hjmcloud" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/guide/" class="nav-link">
+  指南
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="组件集合" class="dropdown-title"><span class="title">组件集合</span> <span class="arrow down"></span></button> <button type="button" aria-label="组件集合" class="mobile-dropdown-title"><span class="title">组件集合</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/config-deliver/" class="nav-link">
+  配置分发服务端
+</a></li><li class="dropdown-item"><!----> <a href="/config-deliver-client/" class="nav-link">
+  配置分发客户端
+</a></li><li class="dropdown-item"><!----> <a href="/hjm-certcheck/" class="nav-link">
+  证书检测
+</a></li></ul></div></div><div class="nav-item"><a href="/script-lib/" class="nav-link router-link-active">
+  脚本库
+</a></div><div class="nav-item"><a href="https://github.com/hjmcloud" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="treafik-systemd-service-安装脚本"><a href="#treafik-systemd-service-安装脚本" class="header-anchor">#</a> Treafik Systemd Service 安装脚本</h1> <h1 id="介绍"><a href="#介绍" class="header-anchor">#</a> 介绍</h1> <p>Traefik Systemd Service 安装脚本，用于安装 Traefik 的 Systemd Service。</p> <h1 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h1> <h2 id="在线安装-推荐"><a href="#在线安装-推荐" class="header-anchor">#</a> 在线安装(推荐)</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> -sSL https://hjmcloud.cn/scripts/traefik/traefik-install.sh <span class="token operator">|</span> <span class="token function">sh</span> -s v2.8.3
+</code></pre></div><h2 id="启动服务"><a href="#启动服务" class="header-anchor">#</a> 启动服务</h2> <div class="language-bash extra-class"><pre class="language-bash"><code>systemctl start traefik
+</code></pre></div><h2 id="当前脚本内容"><a href="#当前脚本内容" class="header-anchor">#</a> 当前脚本内容</h2> <div class="language-sh extra-class"><pre class="language-sh"><code><span class="token shebang important">#! /bin/sh</span>
+<span class="token comment"># 设置出错退出</span>
+<span class="token builtin class-name">set</span> -e
+<span class="token comment"># 设置命令回显</span>
+<span class="token comment"># set -x</span>
+<span class="token comment"># 获取参数设为版本号</span>
+<span class="token assign-left variable">version</span><span class="token operator">=</span><span class="token variable">$1</span>
+<span class="token comment"># 判断版本号参数是否为空</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> -z <span class="token string">&quot;<span class="token variable">$version</span>&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;请输入版本号&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;version: <span class="token variable">$version</span>&quot;</span>
+
+<span class="token comment"># 获取操作系统类型</span>
+<span class="token assign-left variable">os_type</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -s<span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;os_type: <span class="token variable">$os_type</span>&quot;</span>
+<span class="token comment"># 操作系统不是Linux退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$os_type</span>&quot;</span> <span class="token operator">!=</span> <span class="token string">&quot;Linux&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;This script only supports Linux&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token comment"># 获取CPU架构</span>
+<span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">uname</span> -m<span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;CPU架构: <span class="token variable">$arch</span>&quot;</span>
+<span class="token comment"># 根据CPU架构生成下载地址参数</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$arch</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;x86_64&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token string">&quot;amd64&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$arch</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;i386&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token string">&quot;386&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$arch</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;i686&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token string">&quot;386&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$arch</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;aarch64&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token string">&quot;arm64&quot;</span>
+<span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">&quot;<span class="token variable">$arch</span>&quot;</span> <span class="token operator">=</span> <span class="token string">&quot;armv7l&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">arch</span><span class="token operator">=</span><span class="token string">&quot;arm&quot;</span>
+<span class="token keyword">else</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Unsupported CPU architecture: <span class="token variable">$arch</span>&quot;</span>
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;CPU架构: <span class="token variable">$arch</span>&quot;</span>
+<span class="token comment"># 获取脚本所在目录</span>
+<span class="token assign-left variable">SCRIPT_DIR</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>
+    <span class="token builtin class-name">cd</span> <span class="token punctuation">$(</span>dirname $0<span class="token punctuation">)</span>
+    <span class="token builtin class-name">pwd</span>
+<span class="token variable">)</span></span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;应用安装目录: <span class="token variable">$SCRIPT_DIR</span>&quot;</span>
+<span class="token comment"># 判断当前用户是否为root，不是则退出</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span> <span class="token operator">!=</span> <span class="token string">&quot;0&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: You must be root to run this script, please use root to install, you can use the command: sudo -i to login root user&quot;</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;Error: 请使用root用户运行,你可以使用命令: sudo -i 切换到root用户.&quot;</span>
+
+    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># 下载traefik安装包</span>
+<span class="token function">curl</span> -L -o <span class="token variable">$SCRIPT_DIR</span>/traefik_<span class="token variable">${version}</span>_linux_<span class="token variable">${arch}</span>.tar.gz https://gh.hjmcloud.cn/github.com/traefik/traefik/releases/download/<span class="token variable">${version}</span>/traefik_<span class="token variable">${version}</span>_linux_<span class="token variable">${arch}</span>.tar.gz
+<span class="token comment"># 解压安装包</span>
+<span class="token function">tar</span> -zxvf <span class="token variable">$SCRIPT_DIR</span>/traefik_<span class="token variable">${version}</span>_linux_<span class="token variable">${arch}</span>.tar.gz
+<span class="token comment"># 删除安装包</span>
+<span class="token function">rm</span> -rf <span class="token variable">$SCRIPT_DIR</span>/traefik_<span class="token variable">${version}</span>_linux_<span class="token variable">${arch}</span>.tar.gz
+<span class="token comment"># 设置traefik可执行权限</span>
+<span class="token function">chmod</span> +x <span class="token variable">$SCRIPT_DIR</span>/traefik
+<span class="token comment"># 判断traefik.yaml文件是否存在</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -f <span class="token string">&quot;<span class="token variable">$SCRIPT_DIR</span>/traefik.yaml&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;traefik.yaml文件不存在,写入默认配置&quot;</span>
+    <span class="token comment"># 创建traefik.yaml文件</span>
+    <span class="token function">touch</span> <span class="token variable">$SCRIPT_DIR</span>/traefik.yaml
+    <span class="token comment"># 写入traefik.yaml文件内容</span>
+    <span class="token function">cat</span> <span class="token operator">&gt;</span><span class="token variable">$SCRIPT_DIR</span>/traefik.yaml <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+# traefik.yaml
+providers:
+  file:
+    directory: &quot;./conf.d/&quot;
+    watch: true
+entryPoints:
+  web:
+    address: &quot;:80&quot;
+    forwardedHeaders:
+      insecure: true
+  websecure:
+    address: &quot;:443&quot;
+    forwardedHeaders:
+      insecure: true
+api:
+  insecure: true
+  dashboard: true
+EOF</span>
+<span class="token keyword">fi</span>
+<span class="token comment"># 判断conf.d目录是否存在</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> -d <span class="token string">&quot;<span class="token variable">$SCRIPT_DIR</span>/conf.d&quot;</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;conf.d目录不存在,创建目录&quot;</span>
+    <span class="token comment"># 创建conf.d目录</span>
+    <span class="token function">mkdir</span> -p <span class="token variable">$SCRIPT_DIR</span>/conf.d
+<span class="token keyword">fi</span>
+<span class="token comment"># 安装traefik服务</span>
+<span class="token function">cat</span> <span class="token operator">&gt;</span>/etc/systemd/system/traefik.service <span class="token operator">&lt;&lt;</span><span class="token string">EOF
+[Unit]
+Description=traefik
+Documentation=https://traefik.io
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=root
+Group=root
+Type=simple
+WorkingDirectory=<span class="token variable">$SCRIPT_DIR</span>
+ExecStart=<span class="token variable">$SCRIPT_DIR</span>/traefik --configfile=<span class="token variable">$SCRIPT_DIR</span>/traefik.yaml
+Restart=on-failure
+RestartSec=5s
+[Install]
+WantedBy=multi-user.target
+EOF</span>
+<span class="token comment"># 重新加载systemd</span>
+systemctl daemon-reload
+<span class="token comment"># 启动traefik服务</span>
+systemctl start traefik
+<span class="token comment"># 设置开机启动</span>
+systemctl <span class="token builtin class-name">enable</span> traefik
+<span class="token comment"># 查看traefik服务状态</span>
+<span class="token comment"># systemctl status traefik</span>
+<span class="token comment"># 提示安装完成</span>
+<span class="token builtin class-name">echo</span> <span class="token string">&quot;traefik服务安装完成&quot;</span>
+</code></pre></div><h2 id="使用"><a href="#使用" class="header-anchor">#</a> 使用</h2> <h3 id="_1-启动服务"><a href="#_1-启动服务" class="header-anchor">#</a> 1. 启动服务</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>systemctl start traefik
+</code></pre></div><h3 id="_2-停止服务"><a href="#_2-停止服务" class="header-anchor">#</a> 2. 停止服务</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>systemctl stop traefik
+</code></pre></div><h3 id="_3-重启服务"><a href="#_3-重启服务" class="header-anchor">#</a> 3. 重启服务</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>systemctl restart traefik
+</code></pre></div><h3 id="_4-查看服务状态"><a href="#_4-查看服务状态" class="header-anchor">#</a> 4. 查看服务状态</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>systemctl status traefik
+</code></pre></div><h3 id="_5-查看日志"><a href="#_5-查看日志" class="header-anchor">#</a> 5. 查看日志</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>journalctl -u traefik -f
+</code></pre></div><h1 id="参考"><a href="#参考" class="header-anchor">#</a> 参考</h1> <ul><li><a href="https://doc.traefik.io/traefik/" target="_blank" rel="noopener noreferrer">Traefik 官方文档<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://github.com/traefik/traefik/" target="_blank" rel="noopener noreferrer">Traefik 官方 GitHub 仓库<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://hub.docker.com/_/traefik/" target="_blank" rel="noopener noreferrer">Traefik 官方 Docker Hub 仓库<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">2022/9/2 13:40:51</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.41f7334c.js" defer></script><script src="/assets/js/2.66dbf3eb.js" defer></script><script src="/assets/js/23.f7f9bda1.js" defer></script>
+  </body>
+</html>
